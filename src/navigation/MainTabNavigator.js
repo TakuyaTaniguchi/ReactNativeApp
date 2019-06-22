@@ -15,13 +15,55 @@ import {
   MeTabIcon,
   TabBar
 } from 'app/src/components/Tab';
+import TabBarIcon from '../components/TabBarIcon';
 
 //stackNavigatorを簡単に作れるようにするための関数
 const createTabStack = (title,screen) => createStackNavigator({
   [title]: {screen},
 });
 
-
+export default createBottomTabNavigator(
+  {
+    //ホームタブに関する設定を記述する。
+    HomeTab:{
+      screen: createTabStack('HomeTab',HomeScreen),
+      //ホームタブのアイコンを定義します。
+      navigationOptions: () =>({
+        tabBarIcon: HomeTabIcon,
+      }),
+    },
+    SearchTab: {
+      screen: createTabStack('SearchTab',SearchScreen),
+      navigationOptions: () => ({
+        tabBarIcon : SearchTabIcon,
+      }),
+    },
+    TakeTab: {
+      screen: () => null,
+      navigationOptions: ({navigation}) => ({
+        tabBarIcon: TakeTabIcon,
+        tabBarOnPress: () =>{
+          navigation.push('TakeModal');
+        },
+      }),
+    },
+    NotificationTab: {
+      screen: createTabStack('NotificationTab',NotificationScreen),
+      navigationOptions: () => ({
+        tabBarIcon: NotificationTabIcon,
+      }),
+    },
+    MeTab: {
+      screen: createTabStack('MeTab', UserScreen),
+      navigationOptions: () => ({
+        tabBarIcon: MeTabIcon,
+      }),
+    },
+  },
+  {
+    //タブナビゲーション全体に関する設定値を記述します。
+  }
+)
 // import React from 'react';
 // import { Platform } from 'react-native';
 // import {
