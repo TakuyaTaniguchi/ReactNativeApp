@@ -1,54 +1,55 @@
 import { Constants } from 'expo';
 import { createStackNavigator } from 'react-navigation';
-import { createBottomTabNavigator } from 'react-native-tabs';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
 
+/* from app */
+import SearchScreen from 'app/src/screens/SearchScreen';
 import HomeScreen from 'app/src/screens/HomeScreen';
-import SettingsScreen from 'app/src/screens/SearchScreen';
-import NotificationScreen from  'app/src/screens/NotificationScreen';
-
+import NotificationScreen from 'app/src/screens/NotificationScreen';
 import UserScreen from 'app/src/screens/UserScreen';
 import {
   HomeTabIcon,
   SearchTabIcon,
   TakeTabIcon,
-  NotificationScreen,
+  NotificationTabIcon,
   MeTabIcon,
-  TabBar
+  TabBar,
 } from 'app/src/components/Tab';
-import TabBarIcon from '../components/TabBarIcon';
 
-//stackNavigatorを簡単に作れるようにするための関数
-const createTabStack = (title,screen) => createStackNavigator({
-  [title]: {screen},
+// StackNavigatorを簡単に作れるようにするための関数です
+const createTabStack = (title, screen) => createStackNavigator({
+  [title]: { screen },
 });
 
+// メインのBottomTabNavigatorです。画面下部のタブ関連の処理(画面遷移等)を司ります。
 export default createBottomTabNavigator(
   {
-    //ホームタブに関する設定を記述する。
-    HomeTab:{
-      screen: createTabStack('HomeTab',HomeScreen),
-      //ホームタブのアイコンを定義します。
-      navigationOptions: () =>({
+    // ホームタブに関する設定を記述します。
+    HomeTab: {
+      // ホームタブのアイコンが押されたときに表示するスクリーンを定義します。
+      screen: createTabStack('HomeTab', HomeScreen),
+      // ホームタブのアイコンを定義します。
+      navigationOptions: () => ({
         tabBarIcon: HomeTabIcon,
       }),
     },
     SearchTab: {
-      screen: createTabStack('SearchTab',SearchScreen),
+      screen: createTabStack('SearchTab', SearchScreen),
       navigationOptions: () => ({
-        tabBarIcon : SearchTabIcon,
+        tabBarIcon: SearchTabIcon,
       }),
     },
     TakeTab: {
       screen: () => null,
-      navigationOptions: ({navigation}) => ({
+      navigationOptions: ({ navigation }) => ({
         tabBarIcon: TakeTabIcon,
-        tabBarOnPress: () =>{
+        tabBarOnPress: () => { // アイコンタップ時にTakeModalスクリーンを開きます。
           navigation.push('TakeModal');
         },
       }),
     },
     NotificationTab: {
-      screen: createTabStack('NotificationTab',NotificationScreen),
+      screen: createTabStack('NotificationTab', NotificationScreen),
       navigationOptions: () => ({
         tabBarIcon: NotificationTabIcon,
       }),
@@ -60,82 +61,19 @@ export default createBottomTabNavigator(
       }),
     },
   },
+  // タブナビゲーション全体に関する設定値を記述します。
   {
-    //タブナビゲーション全体に関する設定値を記述します。
     tabBarOptions: {
-      showLabel: false, //タブのアイコンの下にラベルを表示しないようにする。
-      activeTintColor: '#333',
-      inactiveTintColor: '#bbb', 
-      style: {
+      showLabel: false, // タブのアイコンの下にラベルを表示しないようにします
+      activeTintColor: '#333', // アクティブなタブの色を指定します。
+      inactiveTintColor: '#bbb', // アクティブではないタブの色を指定します。
+      style: { // タブの背景色を設定します。
         backgroundColor: Constants.manifest.extra.backgroundColor,
       },
     },
-    tabBarComponent: TabBar, //タブ部分のコンポーネントを指定します。
-    tabBarPosition: 'bottom', //タブバーの位置を指定します。
-    animationEnabled: false, //アニメーションを無効にします。
-    swipeEnabled: false, //スワイプに夜画面遷移を無効にします。
-  }
-)
-// import React from 'react';
-// import { Platform } from 'react-native';
-// import {
-//   createStackNavigator,
-//   createBottomTabNavigator,
-// } from 'react-navigation';
-
-// import TabBarIcon from '../components/TabBarIcon';
-// import HomeScreen from '../screens/HomeScreen';
-// import LinksScreen from '../screens/LinksScreen';
-// import SettingsScreen from '../screens/SettingsScreen';
-
-// const HomeStack = createStackNavigator({
-//   Home: HomeScreen,
-// });
-
-// HomeStack.navigationOptions = {
-//   tabBarLabel: 'Home',
-//   tabBarIcon: ({ focused }) => (
-//     <TabBarIcon
-//       focused={focused}
-//       name={
-//         Platform.OS === 'ios'
-//           ? `ios-information-circle${focused ? '' : '-outline'}`
-//           : 'md-information-circle'
-//       }
-//     />
-//   ),
-// };
-
-// const LinksStack = createStackNavigator({
-//   Links: LinksScreen,
-// });
-
-// LinksStack.navigationOptions = {
-//   tabBarLabel: 'Links',
-//   tabBarIcon: ({ focused }) => (
-//     <TabBarIcon
-//       focused={focused}
-//       name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'}
-//     />
-//   ),
-// };
-
-// const SettingsStack = createStackNavigator({
-//   Settings: SettingsScreen,
-// });
-
-// SettingsStack.navigationOptions = {
-//   tabBarLabel: 'Settings',
-//   tabBarIcon: ({ focused }) => (
-//     <TabBarIcon
-//       focused={focused}
-//       name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
-//     />
-//   ),
-// };
-
-// export default createBottomTabNavigator({
-//   HomeStack,
-//   LinksStack,
-//   SettingsStack,
-// });
+    tabBarComponent: TabBar, // タブ部分のコンポーネントを指定します。
+    tabBarPosition: 'bottom', // タブバーの位置を指定します。
+    animationEnabled: false, // アニメーションを無効にします。
+    swipeEnabled: false, // スワイプによる画面遷移を無効にします。
+  },
+);

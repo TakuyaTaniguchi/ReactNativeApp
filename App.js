@@ -4,7 +4,7 @@ import { AppLoading,Asset,Font} from 'expo';
 import React, { useState } from 'react';
 import { Text, View } from 'react-native';
 // import { Ionicons } from '@expo/vector-icons';
-
+import MainTabNavigator from 'app/src/navigation/MainTabNavigator';
 import fonts from 'app/src/fonts';
 import images from 'app/src/images';
 
@@ -46,9 +46,7 @@ export default class App extends React.Component{
       );
     }
     return (
-      <View style={{ flex:1,alignItems:'center',justifyContent:'center'}}>
-        <Text>Hello World</Text>
-      </View>
+      <MainTabNavigator />
     );
   }
 }
