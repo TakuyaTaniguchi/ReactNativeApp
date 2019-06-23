@@ -62,6 +62,18 @@ export default createBottomTabNavigator(
   },
   {
     //タブナビゲーション全体に関する設定値を記述します。
+    tabBarOptions: {
+      showLabel: false, //タブのアイコンの下にラベルを表示しないようにする。
+      activeTintColor: '#333',
+      inactiveTintColor: '#bbb', 
+      style: {
+        backgroundColor: Constants.manifest.extra.backgroundColor,
+      },
+    },
+    tabBarComponent: TabBar, //タブ部分のコンポーネントを指定します。
+    tabBarPosition: 'bottom', //タブバーの位置を指定します。
+    animationEnabled: false, //アニメーションを無効にします。
+    swipeEnabled: false, //スワイプに夜画面遷移を無効にします。
   }
 )
 // import React from 'react';
